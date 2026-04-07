@@ -1,0 +1,12 @@
+#!/bin/sh
+# 如果首次启动向导没有被触发（如无控制台环境）
+# 这个脚本确保系统至少有一个默认配置并标记完成
+
+SETUP_FLAG="/etc/config/.setup_complete"
+
+# 如果向导已经运行过，直接退出（exit 0 会删除本脚本）
+[ -f "$SETUP_FLAG" ] && exit 0
+
+# 向导未运行（可能是无头设备），保持默认 IP 并标记完成
+touch "$SETUP_FLAG"
+exit 0
