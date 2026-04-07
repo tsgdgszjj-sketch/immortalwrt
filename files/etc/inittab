@@ -1,0 +1,12 @@
+# ImmortalWrt /etc/inittab
+# 系统初始化
+::sysinit:/etc/init.d/rcS S boot
+::shutdown:/etc/init.d/rcS K stop
+
+# 首次启动 IP 设置向导（仅运行一次，完成后自动退出）
+::once:/usr/bin/first-boot-wizard.sh
+
+# 串口控制台（按 Enter 激活）
+ttyS0::askfirst:/bin/ash --login
+# 本地控制台
+tty1::askfirst:/bin/ash --login
