@@ -1,8 +1,13 @@
 #!/bin/bash
 # DIY Part 2 - feeds update/install 之后执行
-# 通过 git clone 直接引入 Passwall 和 OpenClash，绕过 feeds 网络问题
 
 set -e
+
+# ── 关键修复：清除 actions/checkout 设置的 credential helper ──────────────
+# actions/checkout 会给 git 装认证 helper，会干扰克隆其他公开仓库
+git config --global credential.helper ''
+git config --global url."https://github.com/".insteadOf git://github.com/
+export GIT_TERMINAL_PROMPT=0
 
 echo ">>> [DIY-2] 克隆 passwall-packages..."
 git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
